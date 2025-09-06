@@ -125,6 +125,8 @@ public struct CreateModelResponseQuery: Codable, Equatable, Sendable {
     /// A unique identifier representing your end-user, which can help OpenAI to monitor and detect abuse.
     /// [Learn more](https://platform.openai.com/docs/guides/safety-best-practices#end-user-ids).
     public let user: String?
+
+    public let verbosity: String?
     
     public init(
         input: Input,
@@ -147,7 +149,8 @@ public struct CreateModelResponseQuery: Codable, Equatable, Sendable {
         tools: [Tool]? = nil,
         topP: Double? = nil,
         truncation: String? = nil,
-        user: String? = nil
+        user: String? = nil,
+        verbosity: String? = nil
     ) {
         self.input = input
         self.model = model
@@ -170,6 +173,7 @@ public struct CreateModelResponseQuery: Codable, Equatable, Sendable {
         self.topP = topP
         self.truncation = truncation
         self.user = user
+        self.verbosity = verbosity
     }
     
     private enum CodingKeys: String, CodingKey {
@@ -194,5 +198,6 @@ public struct CreateModelResponseQuery: Codable, Equatable, Sendable {
         case topP = "top_p"
         case truncation
         case user
+        case verbosity
     }
 }
