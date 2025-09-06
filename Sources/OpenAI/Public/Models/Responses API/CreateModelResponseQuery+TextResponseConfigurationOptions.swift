@@ -18,15 +18,18 @@ extension CreateModelResponseQuery {
         ///
         /// Setting to `{ "type": "json_object" }` enables the older JSON mode, which ensures the message the model generates is valid JSON. Using `json_schema` is preferred for models that support it.
         let format: OutputFormat?
+        let verbosity: String?
         
-        public static let text = TextResponseConfigurationOptions(format: .text)
-        public static let jsonObject = TextResponseConfigurationOptions(format: .jsonObject)
+        public static let text = TextResponseConfigurationOptions(format: .text, verbosity: "medium")
+        public static let textLowVerbosity = TextResponseConfigurationOptions(format: .text, verbosity: "low")
+        public static let jsonObject = TextResponseConfigurationOptions(format: .jsonObject, verbosity: "medium")
         public static func jsonSchema(_ config: OutputFormat.StructuredOutputsConfig) -> TextResponseConfigurationOptions {
-            .init(format: .jsonSchema(config))
+            .init(format: .jsonSchema(config), verbosity: "medium")
         }
-        
-        public init(format: OutputFormat?) {
+
+        public init(format: OutputFormat?, verbosity: String?) {
             self.format = format
+            self.verbosity = verbosity
         }
         
         public enum OutputFormat: Codable, Hashable, Sendable {
