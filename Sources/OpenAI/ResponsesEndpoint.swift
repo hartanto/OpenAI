@@ -59,7 +59,18 @@ public final class ResponsesEndpoint: ResponsesEndpointProtocol, Sendable {
             completion: completion
         )
     }
-    
+
+    public func getResponse(responseId: String, completion: @Sendable @escaping (Result<ResponseObject, any Error>) -> Void) -> any CancellableRequest {
+        client.performRequest(
+            request: makeGetResponseRequest(responseId: responseId),
+            completion: completion
+        )
+    }
+
+    func makeGetResponseRequest(responseId: String) -> JSONRequest<ResponseObject> {
+        .init(url: buildURL(path: .Responses.getModelResponse(responseId: responseId).stringValue))
+    }
+
     func makeCreateResponseRequest(query: CreateModelResponseQuery) -> JSONRequest<ResponseObject> {
         .init(body: query, url: buildURL(path: .Responses.createModelResponse.stringValue))
     }
