@@ -32,7 +32,14 @@ public final class ResponsesEndpoint: ResponsesEndpointProtocol, Sendable {
         self.combineClient = combineClient
         self.configuration = configuration
     }
-    
+
+    public func getResponse(responseId: String, completion: @Sendable @escaping (Result<ResponseObject, any Error>) -> Void) -> any CancellableRequest {
+        client.performRequest(
+            request: makeGetResponseRequest(responseId: responseId),
+            completion: completion
+        )
+    }
+
     public func createResponse(query: CreateModelResponseQuery, completion: @Sendable @escaping (Result<ResponseObject, any Error>) -> Void) -> any CancellableRequest {
         client.performRequest(
             request: makeCreateResponseRequest(query: query),
@@ -56,13 +63,6 @@ public final class ResponsesEndpoint: ResponsesEndpointProtocol, Sendable {
                 url: buildURL(path: .Responses.createModelResponse.stringValue)
             ),
             onResult: onResult,
-            completion: completion
-        )
-    }
-
-    public func getResponse(responseId: String, completion: @Sendable @escaping (Result<ResponseObject, any Error>) -> Void) -> any CancellableRequest {
-        client.performRequest(
-            request: makeGetResponseRequest(responseId: responseId),
             completion: completion
         )
     }

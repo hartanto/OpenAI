@@ -8,6 +8,12 @@
 import Foundation
 
 public protocol ResponsesEndpointProtocol: ResponsesEndpointModern {
+
+    func getResponse(
+        responseId: String,
+        completion: @escaping @Sendable (Result<ResponseObject, Error>) -> Void
+    ) -> CancellableRequest
+
     func createResponse(
         query: CreateModelResponseQuery,
         completion: @escaping @Sendable (Result<ResponseObject, Error>) -> Void
