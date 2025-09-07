@@ -68,7 +68,7 @@ public final class ResponsesEndpoint: ResponsesEndpointProtocol, Sendable {
     }
 
     func makeGetResponseRequest(responseId: String) -> JSONRequest<ResponseObject> {
-        .init(url: buildURL(path: .Responses.getModelResponse(responseId: responseId).stringValue))
+        .init(url: buildURL(path: .Responses.getModelResponse(responseId: responseId).stringValue), method: "GET")
     }
 
     func makeCreateResponseRequest(query: CreateModelResponseQuery) -> JSONRequest<ResponseObject> {
