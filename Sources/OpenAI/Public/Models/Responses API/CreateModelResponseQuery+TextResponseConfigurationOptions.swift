@@ -22,6 +22,8 @@ extension CreateModelResponseQuery {
         
         public static let text = TextResponseConfigurationOptions(format: .text, verbosity: "medium")
         public static let textLowVerbosity = TextResponseConfigurationOptions(format: .text, verbosity: "low")
+        public static let textMediumVerbosity = TextResponseConfigurationOptions(format: .text, verbosity: "medium")
+        public static let textHighVerbosity = TextResponseConfigurationOptions(format: .text, verbosity: "high")
         public static let jsonObject = TextResponseConfigurationOptions(format: .jsonObject, verbosity: "medium")
         public static func jsonSchema(_ config: OutputFormat.StructuredOutputsConfig) -> TextResponseConfigurationOptions {
             .init(format: .jsonSchema(config), verbosity: "medium")
