@@ -2559,6 +2559,8 @@ public enum Components {
             ///
             /// - Remark: Generated from `#/components/schemas/ImageGenTool/partial_images`.
             public var partialImages: Swift.Int?
+
+            public var inputFidelity: Swift.String?
             /// Creates a new `ImageGenTool`.
             ///
             /// - Parameters:
@@ -2572,6 +2574,7 @@ public enum Components {
             ///   - background: Background type for the generated image. One of `transparent`,
             ///   - inputImageMask: Optional mask for inpainting. Contains `image_url`
             ///   - partialImages: Number of partial images to generate in streaming mode, from 0 (default value) to 3.
+            ///   - inputFidelity: Input fidelity
             public init(
                 _type: Components.Schemas.ImageGenTool._TypePayload,
                 model: Components.Schemas.ImageGenTool.ModelPayload? = nil,
@@ -2582,7 +2585,8 @@ public enum Components {
                 moderation: Components.Schemas.ImageGenTool.ModerationPayload? = nil,
                 background: Components.Schemas.ImageGenTool.BackgroundPayload? = nil,
                 inputImageMask: Components.Schemas.ImageGenTool.InputImageMaskPayload? = nil,
-                partialImages: Swift.Int? = nil
+                partialImages: Swift.Int? = nil,
+                inputFidelity: Swift.String? = "low"
             ) {
                 self._type = _type
                 self.model = model
@@ -2594,6 +2598,7 @@ public enum Components {
                 self.background = background
                 self.inputImageMask = inputImageMask
                 self.partialImages = partialImages
+                self.inputFidelity = inputFidelity
             }
             public enum CodingKeys: String, CodingKey {
                 case _type = "type"
@@ -2606,6 +2611,7 @@ public enum Components {
                 case background
                 case inputImageMask = "input_image_mask"
                 case partialImages = "partial_images"
+                case inputFidelity = "input_fidelity"
             }
         }
         /// An image generation request made by the model.
