@@ -9904,6 +9904,7 @@ public enum Components {
             /// - Remark: Generated from `#/components/schemas/ToolChoiceTypes/type`.
             @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
                 case fileSearch = "file_search"
+                case webSearch = "web_search"
                 case webSearchPreview = "web_search_preview"
                 case computerUsePreview = "computer_use_preview"
                 case webSearchPreview20250311 = "web_search_preview_2025_03_11"
@@ -11527,6 +11528,7 @@ public enum Components {
             ///
             /// - Remark: Generated from `#/components/schemas/WebSearchPreviewTool/type`.
             @frozen public enum _TypePayload: String, Codable, Hashable, Sendable, CaseIterable {
+                case webSearch = "web_search"
                 case webSearchPreview = "web_search_preview"
                 case webSearchPreview20250311 = "web_search_preview_2025_03_11"
             }
