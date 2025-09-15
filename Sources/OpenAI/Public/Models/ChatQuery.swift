@@ -582,6 +582,7 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
             public enum ContentPart: Codable, Hashable, Sendable {
                 /// Learn about [text inputs](https://platform.openai.com/docs/guides/text-generation).
                 case text(ContentPartTextParam)
+                case image(ContentPartImageParam)
                 case refusal(Components.Schemas.RefusalContent)
                 
                 public init(from decoder: Decoder) throws {
@@ -607,6 +608,8 @@ public struct ChatQuery: Equatable, Codable, Streamable, Sendable {
                     
                     switch self {
                     case .text(let value):
+                        try container.encode(value)
+                    case .image(let value):
                         try container.encode(value)
                     case .refusal(let value):
                         try container.encode(value)
