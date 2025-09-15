@@ -25,6 +25,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
             /// The role of the author of this message.
             public let role: Self.Role?
             public let toolCalls: [Self.ChoiceDeltaToolCall]?
+            public let images: [Self.ChoiceDeltaImage]?
 
             /// Value for `reasoning` field in response.
             ///
@@ -69,6 +70,34 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
                 }
             }
 
+            public struct ChoiceDeltaImage: Codable, Equatable, Sendable {
+
+                public let type: String?
+                public let imageURL: ChoiceDeltaImageURL?
+
+                public init(
+                    type: String? = nil,
+                    imageURL: Self.ChoiceDeltaImageURL? = nil
+                ) {
+                    self.type = type
+                    self.imageURL = imageURL
+                }
+
+                public enum CodingKeys: String, CodingKey {
+                    case type
+                    case imageURL = "image_url"
+                }
+
+                public struct ChoiceDeltaImageURL: Codable, Equatable, Sendable {
+                    public let url: String?
+                    public init(
+                        url: String? = nil,
+                    ) {
+                        self.url = url
+                    }
+                }
+            }
+
             public struct ChoiceDeltaToolCall: Codable, Equatable, Sendable {
 
                 public let index: Int
@@ -110,6 +139,7 @@ public struct ChatStreamResult: Codable, Equatable, Sendable {
             public enum CodingKeys: String, CodingKey {
                 case content
                 case audio
+                case images
                 case role
                 case toolCalls = "tool_calls"
                 case _reasoning = "reasoning"
