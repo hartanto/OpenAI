@@ -2411,6 +2411,8 @@ public enum Components {
             @frozen public enum ModelPayload: String, Codable, Hashable, Sendable, CaseIterable {
                 case gptImage1 = "gpt-image-1"
                 case gptImage1Mini = "gpt-image-1-mini"
+                case gptImage1_5 = "gpt-image-1.5"
+                case chatgptImageLatest = "chatgpt-image-latest"
             }
             /// The image generation model to use. Default: `gpt-image-1`.
             ///
