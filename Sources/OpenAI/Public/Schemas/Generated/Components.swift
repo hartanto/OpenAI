@@ -2590,7 +2590,7 @@ public enum Components {
                 background: Components.Schemas.ImageGenTool.BackgroundPayload? = nil,
                 inputImageMask: Components.Schemas.ImageGenTool.InputImageMaskPayload? = nil,
                 partialImages: Swift.Int? = nil,
-                inputFidelity: Swift.String? = "low"
+                inputFidelity: Swift.String? = nil
             ) {
                 self._type = _type
                 self.model = model
