@@ -38,13 +38,13 @@ extension OpenAI: OpenAIAsync {
         )
     }
     
-    public func chatsStream(query: ChatQuery) -> AsyncThrowingStream<ChatStreamResult, Error> {
+    public func chatsStreamOriginal(query: ChatQuery) -> AsyncThrowingStream<ChatStreamResult, Error> {
         makeAsyncStream { onResult, completion in
             chatsStream(query: query, onResult: onResult, completion: completion)
         }
     }
 
-    public func chatsStreamDebug(query: ChatQuery) -> AsyncThrowingStream<ChatStreamResult, Error> {
+    public func chatsStream(query: ChatQuery) -> AsyncThrowingStream<ChatStreamResult, Error> {
         // Print raw request body
         if let requestData = try? JSONEncoder().encode(query.makeStreamable()),
            let jsonString = String(data: requestData, encoding: .utf8) {
