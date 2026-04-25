@@ -39,8 +39,31 @@ extension OpenAI: OpenAIAsync {
     }
     
     public func chatsStream(query: ChatQuery) -> AsyncThrowingStream<ChatStreamResult, Error> {
-        makeAsyncStream { onResult, completion in
-            chatsStream(query: query, onResult: onResult, completion: completion)
+        // Print raw request body
+        if let requestData = try? JSONEncoder().encode(query.makeStreamable()),
+           let jsonString = String(data: requestData, encoding: .utf8) {
+            print("Raw request: \(jsonString)")
+        }
+
+        return makeAsyncStream { onResult, completion in
+            let debugOnResult: @Sendable (Result<ChatStreamResult, Error>) -> Void = { result in
+                if case .failure(let error) = result {
+                    switch error {
+                    case let DecodingError.keyNotFound(key, context):
+                        print("Missing key: '\(key.stringValue)' at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))")
+                    case let DecodingError.typeMismatch(type, context):
+                        print("Type mismatch: expected \(type) at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))\nDebug: \(context.debugDescription)")
+                    case let DecodingError.valueNotFound(type, context):
+                        print("Null value: expected \(type) at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))")
+                    case let DecodingError.dataCorrupted(context):
+                        print("Corrupted at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))\nDebug: \(context.debugDescription)")
+                    default:
+                        print("Stream error: \(error)")
+                    }
+                }
+                onResult(result)
+            }
+            return chatsStream(query: query, onResult: debugOnResult, completion: completion)
         }
     }
     

@@ -284,35 +284,9 @@ final public class OpenAI: OpenAIProtocol, @unchecked Sendable {
     }
     
     public func chatsStream(query: ChatQuery, onResult: @escaping @Sendable (Result<ChatStreamResult, Error>) -> Void, completion: (@Sendable (Error?) -> Void)?) -> CancellableRequest {
-        
-        // Print raw request body
-        if let requestData = try? JSONEncoder().encode(query.makeStreamable()),
-           let jsonString = String(data: requestData, encoding: .utf8) {
-            print("Raw request: \(jsonString)")
-        }
-        
-        // Wrap onResult to intercept decoding errors
-        let debugOnResult: @Sendable (Result<ChatStreamResult, Error>) -> Void = { result in
-            if case .failure(let error) = result {
-                switch error {
-                case let DecodingError.keyNotFound(key, context):
-                    print("Missing key: '\(key.stringValue)' at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))")
-                case let DecodingError.typeMismatch(type, context):
-                    print("Type mismatch: expected \(type) at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))\nDebug: \(context.debugDescription)")
-                case let DecodingError.valueNotFound(type, context):
-                    print("Null value: expected \(type) at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))")
-                case let DecodingError.dataCorrupted(context):
-                    print("Corrupted at path: \(context.codingPath.map(\.stringValue).joined(separator: "."))\nDebug: \(context.debugDescription)")
-                default:
-                    print("Stream error: \(error)")
-                }
-            }
-            onResult(result)
-        }
-        
-        return performStreamingRequest(
+        performStreamingRequest(
             request: JSONRequest<ChatStreamResult>(body: query.makeStreamable(), url: buildURL(path: .chats)),
-            onResult: debugOnResult,
+            onResult: onResult,
             completion: completion
         )
     }
