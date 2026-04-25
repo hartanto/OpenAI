@@ -13,4 +13,5 @@ public enum ServiceTier: String, Codable, Hashable, Sendable, CaseIterable {
     case flexTier = "flex"
     case onDemand = "on_demand"
     case priority = "priority"
+    case standard = "standard"
 }
