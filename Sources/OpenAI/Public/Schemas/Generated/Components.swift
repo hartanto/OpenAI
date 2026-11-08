@@ -2415,6 +2415,8 @@ public enum Components {
                 case gptImage2 = "gpt-image-2"
                 case gptImage2_5Sunburst = "gpt-image-2.5-sunburst"
                 case gptImage2_5Flare = "gpt-image-2.5-flare"
+                case gptImage2_6Sunburst = "gpt-image-2.6-sunburst"
+                case gptImage2_6Flare = "gpt-image-2.6-flare"
                 case chatgptImageLatest = "chatgpt-image-latest"
             }
             /// The image generation model to use. Default: `gpt-image-1`.
